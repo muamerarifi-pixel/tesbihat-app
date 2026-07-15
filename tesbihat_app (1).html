@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#059669">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Tesbihat Shqip</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'media',
+            theme: {
+                extend: {
+                    colors: {
+                        emerald: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --safe-area-inset-bottom: env(safe-area-inset-bottom);
+            --base-font-size: 16px; /* Default font size */
+        }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
+            -webkit-tap-highlight-color: transparent;
+            overscroll-behavior-y: none;
+            scroll-behavior: smooth;
+        }
+        
+        /* Font styles responsive to JS changes */
+        .arabic-text { 
+            font-family: "Scheherazade New", "Amiri", "Traditional Arabic", Georgia, serif;
+            font-size: calc(var(--base-font-size) * 1.25); 
+            line-height: 1.8; 
+            font-weight: 500;
+        }
+
+        .albanian-text {
+            font-size: calc(var(--base-font-size) * 0.95);
+            line-height: 1.6;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .tab-btn {
+            transition: all 0.2s ease-in-out;
+        }
+        .tab-btn.active {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200 antialiased h-screen flex flex-col">
+
+<!-- Header with Text Size Controls -->
+<header class="bg-gradient-to-r from-emerald-700 to-emerald-600 text-white pt-safe px-4 pb-3 shadow-md shrink-0 z-20 sticky top-0 flex flex-col">
+    <div class="pt-8 pb-1 flex justify-between items-center">
+        <div>
+            <h1 class="text-2xl font-extrabold tracking-tight">Tesbihat Shqip</h1>
+            <p class="text-emerald-100 text-xs font-medium opacity-90 mt-0.5">Lutjet pas Namazit</p>
+        </div>
+        <!-- Text Size Controls -->
+        <div class="flex space-x-2 bg-emerald-800/50 rounded-lg p-1 border border-emerald-500/30">
+            <button onclick="changeFontSize(-1)" class="w-8 h-8 flex items-center justify-center rounded hover:bg-emerald-700/50 active:bg-emerald-600 transition-colors" aria-label="Zvogëlo tekstin">
+                <span class="text-sm font-bold">Aa-</span>
+            </button>
+            <div class="w-px bg-emerald-500/50 my-1"></div>
+            <button onclick="changeFontSize(1)" class="w-8 h-8 flex items-center justify-center rounded hover:bg-emerald-700/50 active:bg-emerald-600 transition-colors" aria-label="Zmadho tekstin">
+                <span class="text-lg font-bold">Aa+</span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<!-- Main Scrollable Content -->
+<main id="content" class="flex-1 overflow-y-auto px-4 pt-4 pb-32 space-y-6">
+    <!-- Dynamic Content will be injected here -->
+</main>
+
+<!-- Counter Overlay (Hidden by default) -->
+<div id="counter-overlay" class="fixed inset-0 bg-black/90 z-50 hidden flex-col items-center justify-center backdrop-blur-md transition-opacity">
+    <div class="text-white text-3xl font-bold mb-4 text-center px-4" id="counter-title">Subhanallah</div>
+    <div class="text-gray-400 text-sm mb-8" id="counter-target">Synimi: 33</div>
+    
+    <div class="relative flex items-center justify-center mb-12">
+        <!-- Outer ripple rings -->
+        <div class="absolute inset-0 rounded-full border-4 border-emerald-500/20 animate-ping" style="animation-duration: 3s;"></div>
+        <div class="absolute inset-[-20px] rounded-full border-2 border-emerald-500/10 animate-ping" style="animation-duration: 2s;"></div>
+        
+        <!-- Big Number -->
+        <div class="text-[140px] font-extrabold text-emerald-400 tabular-nums z-10 transition-colors duration-300 drop-shadow-[0_0_15px_rgba(5,150,105,0.5)]" id="counter-value">0</div>
+    </div>
+
+    <!-- The giant tap button -->
+    <button onclick="incrementCounter()" class="bg-gradient-to-b from-emerald-500 to-emerald-700 active:from-emerald-600 active:to-emerald-800 text-white rounded-full w-48 h-48 flex flex-col items-center justify-center shadow-[0_10px_30px_rgba(5,150,105,0.5)] active:shadow-inner transform active:scale-95 transition-all outline-none border-4 border-emerald-400/30">
+        <svg class="w-12 h-12 mb-2 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"></path></svg>
+        <span class="text-2xl font-black uppercase tracking-widest">Shtyp</span>
+    </button>
+    
+    <button onclick="closeCounter()" class="absolute top-12 right-6 text-gray-300 hover:text-white bg-white/10 rounded-full p-3 backdrop-blur-sm">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+    </button>
+</div>
+
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 shadow-[0_-2px_15px_rgba(0,0,0,0.08)] dark:shadow-[0_-2px_15px_rgba(0,0,0,0.5)] z-30 pb-[env(safe-area-inset-bottom)] border-t border-gray-100 dark:border-gray-700">
+    <div class="flex justify-between px-2 py-2 w-full max-w-lg mx-auto overflow-x-auto no-scrollbar" id="bottom-tabs">
+        <!-- Tabs injected by JS -->
+    </div>
+</nav>
+
+<script>
+    // --- SETTINGS LOGIC ---
+    let currentFontSize = 16;
+    const rootStyle = document.documentElement.style;
+
+    function changeFontSize(step) {
+        // Step can be 1 or -1
+        currentFontSize += step * 2; // Increase/decrease by 2px
+        // Clamp font size between 12px and 26px
+        if (currentFontSize < 12) currentFontSize = 12;
+        if (currentFontSize > 26) currentFontSize = 26;
+        
+        rootStyle.setProperty('--base-font-size', `${currentFontSize}px`);
+        if (window.navigator && window.navigator.vibrate) navigator.vibrate(20);
+    }
+
+    // --- EXACT DATA STORE WITH TRANSLATIONS ---
+    const sharedPieces = {
+        pasFarzit: {
+            title: "Pasi mbaron farzi",
+            arabic: "Allâhumme entes selâm ue minkes selâm, tebêrakte jâ dhel xhelêli uel ikrâm",
+            albanian: "O Allah, Ti je Paqja dhe nga Ti buron paqja. Qofsh i bekuar, o Zot i Madhështisë dhe Nderimit."
+        },
+        salatuTunxhina: {
+            title: "Salatu Tunxhina",
+            arabic: "Allâhumme sal’li alâ sejjidinâ Muhammedin ue alâ âli sejjidinâ Muhammed. Salâten tunxhînâ bihâ min xhemî’il ahuâli uel âfât (tek uel âfât duart kthehen poshtë dhe ngrihen lart pas kësaj fjale). Ue takdî lenê bihâ xhemî’al hâxhât, ue tutahhirunâ bihâ min xhemî’is sejjiât, ue terfe’unâ bihâ indeke a’lâd deraxhât, ue tubel’ligunâ bihâ aksal gâjât, min xhemî’il hajrâti fil hajâti ue ba’del memât, bi rahmetike jâ erhamer râhimîn. Hasbunallâhu ue ni’mel uekîl, ni’mel meulâ ue ni’men nasîr. Gufrâneke rabbenâ ue ilejkel masîr.",
+            albanian: "O Allah, dërgo salavate mbi zotërinë tonë Muhamed dhe mbi familjen e tij. Një salavat me të cilin na shpëton nga të gjitha tmerret dhe fatkeqësitë, na i plotëson të gjitha nevojat, na pastron nga të gjitha të këqijat, na lartëson në shkallët më të larta pranë Teje dhe na bën të arrijmë qëllimet e të gjitha të mirave në këtë jetë dhe pas vdekjes, me mëshirën Tënde, o Mëshiruesi më i madh. Allahu na mjafton, Ai është rregulluesi më i mirë, Mbrojtësi më i mirë dhe Ndihmuesi më i mirë. Kërkojmë faljen Tënde o Zoti ynë, dhe tek Ti është kthimi."
+        },
+        hyrjaSabahAksham: {
+            title: "Tesbihati i Hyrjes",
+            arabic: "Allâhumme innâ nukaddimu ilejke bejne jedej kul’li nefesin ue lemhatin ue lahdhatin ue tarfetin jatrifu bihâ ehlus semâuâti ue ehlul erâdîne shehêdeten: Eshhedu en (deri këtu 1 herë) Lâ ilâhe il’lallâhu uahdehû lâ sherîke leh, lehul mulku ue lehul hamdu juhjî ue jumît, ue huve hajjun lâ jemût, bi jedihil hajr, ue huve alâ kul’li shej’in kadîr (10 herë dhe në të dhjetën shtohet) ue ilejhil masîr.",
+            albanian: "O Allah, ne Të paraqesim para çdo frymëmarrjeje, shikimi, dhe pulitjeje sysh që e bëjnë banorët e qiejve dhe të tokës, dëshminë: Dëshmoj se nuk ka zot tjetër përveç Allahut, Një dhe i pashoq. Atij i takon Sundimi dhe Falënderimi, Ai ngjall dhe vdes. Ai është i Gjallë e nuk vdes kurrë. E mira është në Dorën e Tij dhe Ai është i Plotfuqishëm për çdo gjë (lexohet 10 herë, në fund shtohet) dhe tek Ai është kthimi."
+        },
+        exhirnaMbrojtja: {
+            title: "Mbrojtja (Duart poshtë)",
+            arabic: "(duart poshtë)<br>Allahumme exhirna minen nar<br>Allâhumme exhirnâ min kul’li nâr.<br>Allâhumme exhirnâ min fitnetid dînijjeti ue dunjêuijjeh<br>Allâhumme exhirnâ min fitneti ahiriz zamân<br>Allâhumme exhirnâ min fitnetil mesîhid dexhxhâli ues sufjân<br>Allâhumme exhirnâ mined dalâlâti uel bid’ijjâti uel belijjât<br>Allâhumme exhirnâ min sherrin nefsil emmâreh<br>Allâhumme exhirnâ min shurûrin nufûsil emmârâtil fir’aunijjeh<br>Allâhumme exhirnâ min sherrin nisâ<br>Allâhumme exhirnâ min belâin nisâ<br>Allâhumme exhirnâ min fitnetin nisâ<br>Allâhumme exhirnâ min adhâbil kabr<br>Allâhumme exhirnâ min adhâbi jeumil kijâmeh<br>Allâhumme exhirnâ min adhâbi xhehennem<br>Allâhumme exhirnâ min adhâbi kahrik<br>Allâhumme exhirnâ min nâri kahrik<br>Allâhumme exhirnâ min adhâbil kabri uen nîrân<br>Allâhumme exhirnâ miner rijâi ues sum’ati uel uxhbi uel fahr<br>Allâhumme exhirnâ min texhâvuzil mulhidîn<br>Allâhumme exhirnâ min sherril munâfikîn<br>Allâhumme exhirnâ min fitnetil fâsikîn<br>Allâhumme exhirnâ ue exhir uâlidejnâ ue ahbâbenel mu’minînel muhlisîne ue akribâenâ ue exhdâdenâ minen nâr<br><br>(duart lart) bi afuike jâ Muxhîr, bi fadlike jâ Gaffâr.",
+            albanian: "(Mbaj duart me pëllëmbë poshtë)<br>O Allah na ruaj nga zjarri.<br>O Allah na ruaj nga çdo zjarr.<br>O Allah na ruaj nga sprovat e fesë dhe dynjasë.<br>O Allah na ruaj nga sprova e kohës së fundit.<br>O Allah na ruaj nga sprova e Dexhaxhalit dhe e Sufjanit.<br>O Allah na ruaj nga devijimet, bidatet (risitë e këqija) dhe belatë.<br>O Allah na ruaj nga e keqja e nefsit (epshit) urdhërues për të keqen.<br>O Allah na ruaj nga të këqijat e nefsit të faraonizuar.<br>O Allah na ruaj nga e keqja e grave (të këqija).<br>O Allah na ruaj nga belaja e grave.<br>O Allah na ruaj nga sprova e grave.<br>O Allah na ruaj nga dënimi i varrit.<br>O Allah na ruaj nga dënimi i Ditës së Kiametit.<br>O Allah na ruaj nga dënimi i Xhehenemit.<br>O Allah na ruaj nga dënimi i zemërimit Tënd.<br>O Allah na ruaj nga zjarri i zemërimit Tënd.<br>O Allah na ruaj nga dënimi i varrit dhe i zjarreve.<br>O Allah na ruaj nga syfaqësia, kërkimi i famës, mendjemadhësia dhe mburrja.<br>O Allah na ruaj nga kalimi i kufijve i ateistëve (mohuesve).<br>O Allah na ruaj nga e keqja e hipokritëve.<br>O Allah na ruaj nga sprova e mëkatarëve.<br>O Allah na ruaj ne, ruaji prindërit tanë, të dashurit tanë besimtarë të sinqertë, të afërmit tanë dhe të parët tanë nga zjarri.<br><br>(Kthe duart me pëllëmbë lart) Me faljen Tënde o Shpëtues, me mirësinë Tënde o Falës."
+        },
+        exhirnaMbrojtjaAksham: {
+            title: "Mbrojtja (Duart poshtë)",
+            arabic: "(duart poshtë) Allâhumme exhirnâ minen nâr (3-5-7)<br>Allâhumme exhirnâ min kul’li nâr.<br>Allâhumme exhirnâ min fitnetid dînijjeti ue dunjêuijjeh<br>Allâhumme exhirnâ min fitneti ahiriz zamân<br>Allâhumme exhirnâ min fitnetil mesîhid dexhxhâli ues sufjân<br>Allâhumme exhirnâ mined dalâlâti uel bid’ijjâti uel belijjât<br>Allâhumme exhirnâ min sherrin nefsil emmâreh<br>Allâhumme exhirnâ min shurûrin nufûsil emmârâtil fir’aunijjeh<br>Allâhumme exhirnâ min sherrin nisâ<br>Allâhumme exhirnâ min belâin nisâ<br>Allâhumme exhirnâ min fitnetin nisâ<br>Allâhumme exhirnâ min adhâbil kabr<br>Allâhumme exhirnâ min adhâbi jeumil kijâmeh<br>Allâhumme exhirnâ min adhâbi xhehennem<br>Allâhumme exhirnâ min adhâbi kahrik<br>Allâhumme exhirnâ min nâri kahrik<br>Allâhumme exhirnâ min adhâbil kabri uen nîrân<br>Allâhumme exhirnâ miner rijâi ues sum’ati uel uxhbi uel fahr<br>Allâhumme exhirnâ min texhâvuzil mulhidîn<br>Allâhumme exhirnâ min sherril munâfikîn<br>Allâhumme exhirnâ min fitnetil fâsikîn<br>Allâhumme exhirnâ ue exhir uâlidejnâ ue ahbâbenel mu’minînel muhlisîne ue akribâenâ ue exhdâdenâ minen nâr<br><br>(duart lart) bi afuike jâ Muxhîr, bi fadlike jâ Gaffâr.",
+            albanian: "O Allah na ruaj nga zjarri (lexohet 3, 5 ose 7 herë).<br>O Allah na ruaj nga çdo zjarr.<br>O Allah na ruaj nga sprovat e fesë dhe dynjasë.<br>O Allah na ruaj nga sprova e kohës së fundit.<br>O Allah na ruaj nga sprova e Dexhaxhalit dhe e Sufjanit.<br>O Allah na ruaj nga devijimet, bidatet dhe belatë.<br>O Allah na ruaj nga e keqja e nefsit (epshit) urdhërues për të keqen.<br>O Allah na ruaj nga të këqijat e nefsit të faraonizuar.<br>O Allah na ruaj nga e keqja e grave (të këqija).<br>O Allah na ruaj nga belaja e grave.<br>O Allah na ruaj nga sprova e grave.<br>O Allah na ruaj nga dënimi i varrit.<br>O Allah na ruaj nga dënimi i Ditës së Kiametit.<br>O Allah na ruaj nga dënimi i Xhehenemit.<br>O Allah na ruaj nga dënimi i zemërimit Tënd.<br>O Allah na ruaj nga zjarri i zemërimit Tënd.<br>O Allah na ruaj nga dënimi i varrit dhe i zjarreve.<br>O Allah na ruaj nga syfaqësia, kërkimi i famës, mendjemadhësia dhe mburrja.<br>O Allah na ruaj nga kalimi i kufijve i ateistëve.<br>O Allah na ruaj nga e keqja e hipokritëve.<br>O Allah na ruaj nga sprova e mëkatarëve.<br>O Allah na ruaj ne, ruaji prindërit tanë, të dashurit tanë besimtarë të sinqertë, të afërmit tanë dhe të parët tanë nga zjarri.<br><br>(Kthe duart lart) Me faljen Tënde o Shpëtues, me mirësinë Tënde o Falës."
+        },
+        duajaXhenetit: {
+            title: "Duaja e Xhenetit",
+            arabic: "Allâhumme ed’hilnel xhennete meal ebrâr<br>Allâhumme ed’hilnel xhennete meal ebrâr<br>Allâhumme ed’hilnâ ue uâlidejnâ ue ihuânenâ ue ehauâtinâ ue akribâenâ ue exhdâdenâ ue ahbâbenel mu’minînel muhlisîne fi hidmetil imâni uel Kur’ân, el xhennete me’al ebrâr, bi shefaâti nebijjikel muhtâr ue âlihil at’hâr ue as’hâbihil ahjâr ue sel’lim mâ dâmel lejlu uen nehâr. Âmin, uelhamdu lil’lâhi Rabbil Âlemin.",
+            albanian: "O Allah, na fut në Xhenet me të mirët.<br>O Allah, na fut në Xhenet me të mirët.<br>O Allah, na fut ne, prindërit tanë, vëllezërit, motrat, të afërmit, të parët tanë dhe miqtë tanë besimtarë e të sinqertë në shërbim të besimit dhe Kuranit, në Xhenet bashkë me të mirët. Me ndërmjetësimin e Pejgamberit Tënd të zgjedhur, familjes së tij të pastër dhe shokëve të tij të zgjedhur, paqja qoftë mbi ta për aq kohë sa ekziston nata dhe dita. Amin, dhe falënderimi i takon Allahut, Zotit të botëve."
+        },
+        tesbihetParaNumrimit: {
+            title: "Para Tesbiheve (Ajetul Kursi)",
+            arabic: "Subhânallâhi uel hamdu lil’lâhi ue lâ ilâhe il’lallâhu uallâhu ekber, ue lâ haule ue lâ kuvvete il’lâ bil’lâhi’l alijjil adhîm.<br><br>Ajetul Kursi.",
+            albanian: "I lartësuar qoftë Allahu, falënderimi i qoftë Atij, nuk ka zot tjetër përveç Allahut, Allahu është më i Madhi. Nuk ka forcë as fuqi përveçse me ndihmën e Allahut, të Lartit, Madhështorit.<br><br>(Lexohet Ajeti i Fronit - Ajetul Kursi)"
+        },
+        tesbihetNumrimi: {
+            title: "Dhikri (33)",
+            arabic: `<div class='flex flex-col space-y-3 my-2'>
+                <button onclick="openCounter('Subhânallâh')" class='bg-emerald-100 dark:bg-emerald-900/40 border border-emerald-200 dark:border-emerald-800 text-emerald-900 dark:text-emerald-100 py-4 px-5 rounded-xl font-bold flex justify-between items-center active:scale-[0.98] transition-transform shadow-sm'>
+                    <span class='text-xl'>33 Subhânallâh</span>
+                    <span class='text-emerald-700 dark:text-emerald-400 text-sm font-normal'>I lartësuar është Allahu</span>
+                    <svg class='w-6 h-6 text-emerald-500' fill='none' stroke='currentColor' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122'></path></svg>
+                </button>
+                <button onclick="openCounter('Elhamdu lil’lâh')" class='bg-emerald-100 dark:bg-emerald-900/40 border border-emerald-200 dark:border-emerald-800 text-emerald-900 dark:text-emerald-100 py-4 px-5 rounded-xl font-bold flex justify-between items-center active:scale-[0.98] transition-transform shadow-sm'>
+                    <span class='text-xl'>33 Elhamdu lil’lâh</span>
+                    <span class='text-emerald-700 dark:text-emerald-400 text-sm font-normal'>Falënderimi i qoftë Allahut</span>
+                    <svg class='w-6 h-6 text-emerald-500' fill='none' stroke='currentColor' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122'></path></svg>
+                </button>
+                <button onclick="openCounter('Allâhu Ekber')" class='bg-emerald-100 dark:bg-emerald-900/40 border border-emerald-200 dark:border-emerald-800 text-emerald-900 dark:text-emerald-100 py-4 px-5 rounded-xl font-bold flex justify-between items-center active:scale-[0.98] transition-transform shadow-sm'>
+                    <span class='text-xl'>33 Allâhu Ekber</span>
+                    <span class='text-emerald-700 dark:text-emerald-400 text-sm font-normal'>Allahu është më i Madhi</span>
+                    <svg class='w-6 h-6 text-emerald-500' fill='none' stroke='currentColor' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122'></path></svg>
+                </button>
+            </div>`,
+            albanian: "",
+            isHtml: true
+        },
+        tesbihetPasNumrimit: {
+            title: "Pas Dhikrit",
+            arabic: "Lâ ilâhe il’lallâhu uahdehû lâ sherîke leh, lehul mulku ue lehul hamdu juhjî ue jumît, ue huve hajjun lâ jemût, bi jedihil hajr ue huve alâ kul’li shej’in kadîr ue ilejhil masîr.",
+            albanian: "Nuk ka zot tjetër përveç Allahut, Një dhe i pashoq. Atij i takon Sundimi dhe Falënderimi, Ai ngjall dhe vdes. Ai është i Gjallë e nuk vdes kurrë. E mira është në Dorën e Tij dhe Ai është i Plotfuqishëm për çdo gjë dhe tek Ai është kthimi."
+        },
+        dua: {
+            title: "Dua dhe Salavate",
+            arabic: "Dua<br>Fa’lem ennehu, “Lâ ilâhe il’lâllah (33) Muhammedun Resûlullâhi sal’lallâhu teâlâ alejhi ue sel’lem.<br><br>Eûdhu bil’lâhi minesh shejtânir raxhîm<br>Bismil’lâhir Rahmânir Rahîm<br>Innallâhe ue melâiketehû jusal’lûne alen nebijj, jâ ejjuhel ledhîne âmenû sal’lû alejhi ue sel’limû teslîmâ lebbejk.<br><br>Allâhumme sâl’li alâ sejjidinâ Muhammedin ue alâ âli sejjidinâ Muhammed. Bi adedi kul’li dâin ue deuâin ue bârik ue sel’lim alejhi ue alejhim kethîrâ;<br><br>Allâhumme sâl’li alâ sejjidinâ Muhammedin ue alâ âli sejjidinâ Muhammed. Bi adedi kul’li dâin ue deuâin ue bârik ue sel’lim alejhi ue alejhim kethîrâ;<br><br>Allâhumme sâl’li alâ sejjidinâ Muhammedin ue alâ âli sejjidinâ Muhammed. Bi adedi kul’li dâin ue deuâin ue bârik ue sel’lim alejhi ue alejhim kethîran kethîrâ.<br><br>Sal’li ue sel’lim jâ rabbi alâ habîbike Muhammedin ue alâ xhemîil enbijâi uel murselîn, ue alâ âli kul’lin ue sahbi kul’lin exhmeîn, âmîn, uel hamdu lil’lâhi Rabbil Âlemîn.<br><br>Elfu elfi salâtin ue elfu elfi selâmin alejke jâ rasûlallâh<br>Elfu elfi salâtin ue elfu elfi selâmin alejke jâ habîballâh<br>Elfu elfi sâlâtin ue elfu elfi selâmin alejke jâ emîne uahjil’lâh<br><br>Allahumme sal’li ue sel’lim ue bârik alâ sejjidinâ Muhammedin ue alâ âlihi ue as’hâbih, bi adedi eurâkil eshxhâr ue emuâxhil bihâr ue katarâtil emtâr, uâgfirlenâ uerhamnâ ueltuf binâ ue uâlidejnâ jâ ilâhenâ bi kul’li salâtin minhâ, eshhedu en lâ ilâhe il’lallâh ue eshhedu enne Muhammeden Rasûlullâhi sal’lallâhu teâlâ alejhi ue sel’lem.",
+            albanian: "(Këtu bëhet duaja personale me duar të ngritura, pastaj thuhet:)<br>Dije se: Nuk ka zot tjetër përveç Allahut (lexohet 33 herë), Muhamedi është i Dërguari i Allahut, paqja dhe bekimi i Allahut qofshin mbi të.<br><br>Kërkoj mbrojtje tek Allahu nga shejtani i mallkuar. Me emrin e Allahut, Mëshiruesit, Mëshirëplotit.<br>Vërtet, Allahu dhe engjëjt e Tij dërgojnë salavate mbi Pejgamberin. O ju që keni besuar, dërgoni salavate mbi të dhe përshëndeteni me selam. (Të përgjigjemi o Zot).<br><br>O Allah, dërgo salavate mbi zotërinë tonë Muhamed dhe mbi familjen e tij. Sa numri i çdo sëmundjeje dhe ilaçi, dhe bekoi ata shumë.<br>O Allah, dërgo salavate mbi zotërinë tonë Muhamed dhe mbi familjen e tij. Sa numri i çdo sëmundjeje dhe ilaçi, dhe bekoi ata shumë.<br>O Allah, dërgo salavate mbi zotërinë tonë Muhamed dhe mbi familjen e tij. Sa numri i çdo sëmundjeje dhe ilaçi, dhe bekoi ata pafundësisht.<br><br>Dërgo salavate e selame o Zoti im mbi të dashurin Tënd Muhamed, mbi të gjithë pejgamberët e të dërguarit, mbi familjet e tyre dhe mbi të gjithë shokët e tyre. Amin. Falënderimi i takon Allahut, Zotit të botëve.<br><br>Një milion salavate dhe një milion selame qofshin mbi ty o i Dërguari i Allahut.<br>Një milion salavate dhe një milion selame qofshin mbi ty o i Dashuri i Allahut.<br>Një milion salavate dhe një milion selame qofshin mbi ty o Besniku i shpalljes së Allahut.<br><br>O Allah dërgo salavate, selame dhe bekime mbi zotërinë tonë Muhamed, mbi familjen dhe shokët e tij, sa numri i gjetheve të pemëve, dallgëve të detit dhe pikave të shiut. Na fal ne, na mëshiro, ji i butë me ne dhe prindërit tanë o Zoti ynë, për hir të secilit salavat prej tyre. Dëshmoj se nuk ka zot tjetër përveç Allahut dhe dëshmoj se Muhamedi është i Dërguari i Allahut, paqja dhe bekimi i Allahut qofshin mbi të."
+        },
+        ismiAzamSabahAksham: {
+            title: "Ismi Azam",
+            arabic: "Bismil’lâhi Rrahmâni Rrahîm<br>Subhaneke ja Allah tealejte ja Rrahman<br>exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Rrahîm teâlejte jâ Kerîm, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Hamîd teâlejte jâ Hakîm, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Mexhîd teâlejte jâ Melik, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Kuddûs teâlejte jâ Selâm, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Mu’min teâlejte jâ Muhejmin, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Azîz teâlejte jâ Xhebbâr, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Mutekebbir teâlejte jâ Hâlik, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Euuel teâlejte jâ Âhir, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Dhâhir teâlejte jâ Bâtin, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Bâri teâlejte jâ Musâuuir, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Teuuâb teâlejte jâ Uehhâb, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Bâith teâlejte jâ Uârith, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Kadîm teâlejte jâ Mukîm, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Ferd teâlejte jâ Uitr, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Nûr teâlejte jâ Settâr, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Xhelîl teâlejte jâ Xhemîl, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Kâhir teâlejte jâ Kâdir, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Melîk teâlejte jâ Muktedir, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Alîm teâlejte jâ Al’lâm, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Adhîm teâlejte jâ Gafûr, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Halîm teâlejte jâ Uedûd, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Shehîd teâlejte jâ Shâhid, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Kebîr teâlejte jâ Mute’âl, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Nûr teâlejte jâ Latîf, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Semi‘ teâlejte jâ Kefîl, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Karîb teâlejte jâ Basîr, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Hakk teâlejte jâ Mubîn, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Raûf teâlejte jâ Rrahîm, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Tâhir teâlejte jâ Mutahhir, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Muxhemmil teâlejte jâ Mufaddil, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Mudhhir teâlejte jâ Mun’im, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Dejjân teâlejte jâ Sultân, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Hannân teâlejte jâ Mennân, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Ehad teâlejte jâ Samed, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Hajj teâlejte jâ Kajjûm, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Adl teâlejte jâ Hakem, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Ferd teâlejte jâ Kuddûs, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke âhijjen sherâhijjen teâlejte lâ ilâhe il’lâ ente exhirnâ ue exhir uâlidejnâ ue rufekâenâ ue akribâenâ ue ahbâbenel mu’minînel muhlisîne minen nâr ue min kul’li nâr (duart poshtë) uahfadhnâ min sherrin nefsi uesh shejtân ue min sherril xhinni uel insân ue min sherril bid’ati ued dalâlâti uel ilhâdi uet tugjân (duart lart) bi afuike jâ Muxhîr, bi fadlike jâ Gaffâr, bi rahmetike jâ erhamer rrâhimîn. Allâhumme ed’hilnal Xhennete meal ebrâr, bi shefâati nebijjikel muhtâr. Amîn uel hamdu lil’lâhi Rabbil Âlemîn.",
+            albanian: "Me emrin e Allahut, Mëshiruesit, Mëshirëplotit.<br>I Lartësuar je o Allah, i lartësuar je o Mëshirues.<br>Na ruaj nga zjarri me faljen Tënde o Mëshirues.<br>I Lartësuar je o Mëshirëplotë, i lartësuar je o Bujar...<br>I Lartësuar je o i Lavdishëm, i lartësuar je o i Urtë...<br>I Lartësuar je o i Madhërishëm, i lartësuar je o Sundimtar...<br>I Lartësuar je o i Shenjtë, i lartësuar je o Shpëtimtar...<br>I Lartësuar je o Besues, i lartësuar je o Mbikëqyrës...<br>I Lartësuar je o i Fuqishëm, i lartësuar je o Shtrëngues...<br>I Lartësuar je o Madhështor, i lartësuar je o Krijues...<br>I Lartësuar je o i Pari, i lartësuar je o i Fundit...<br>I Lartësuar je o i Dukshmi, i lartësuar je o i Fshehti...<br>I Lartësuar je o Fillues, i lartësuar je o Formësues...<br>I Lartësuar je o Pranues i pendimit, i lartësuar je o Dhurues...<br>I Lartësuar je o Ringjallës, i lartësuar je o Trashëgimtar...<br>I Lartësuar je o i Pashfillim, i lartësuar je o i Përhershëm...<br>I Lartësuar je o i Vetëm (Tek), i lartësuar je o Tek...<br>I Lartësuar je o Dritë, i lartësuar je o Mbulues i të metave...<br>I Lartësuar je o i Lartë, i lartësuar je o i Bukur...<br>I Lartësuar je o Mposhtës, i lartësuar je o i Mundshëm...<br>I Lartësuar je o Pronar, i lartësuar je o i Plotfuqishëm...<br>I Lartësuar je o i Dijshëm, i lartësuar je o i Gjithëdijshëm...<br>I Lartësuar je o Madhështor, i lartësuar je o Falës...<br>I Lartësuar je o i Butë, i lartësuar je o i Dashur...<br>I Lartësuar je o Dëshmues, i lartësuar je o Dëshmitar...<br>I Lartësuar je o i Madh, i lartësuar je o i Lartësuar...<br>I Lartësuar je o Dritë, i lartësuar je o i Kuptueshëm...<br>I Lartësuar je o Dëgjues, i lartësuar je o Dorëzanës...<br>I Lartësuar je o i Afërt, i lartësuar je o Shikues...<br>I Lartësuar je o i Vërtetë, i lartësuar je o Sqarues...<br>I Lartësuar je o i Dhembshur, i lartësuar je o Mëshirëplotë...<br>I Lartësuar je o i Pastër, i lartësuar je o Pastrues...<br>I Lartësuar je o Zbukurues, i lartësuar je o Dhurues i vlerave...<br>I Lartësuar je o Shfaqës, i lartësuar je o Begatues...<br>I Lartësuar je o Llogaritar, i lartësuar je o Sulltan...<br>I Lartësuar je o i Mëshirshëm, i lartësuar je o Dhurues...<br>I Lartësuar je o Një, i lartësuar je o Absolut (Samed)...<br>I Lartësuar je o i Gjallë, i lartësuar je o Mbajtës i jetës...<br>I Lartësuar je o i Drejtë, i lartësuar je o Gjykues...<br>I Lartësuar je o i Vetëm, i lartësuar je o i Shenjtë...<br><br>I lartësuar je o i Gjallë e Përjetshëm, nuk ka zot tjetër përveç Teje. Na ruaj ne, prindërit tanë, miqtë tanë, të afërmit tanë, dhe të dashurit tanë besimtarë të sinqertë nga zjarri dhe nga çdo zjarr. (kthe duart poshtë) Na ruaj nga e keqja e nefsit (epshit) dhe e shejtanit, nga e keqja e xhinëve dhe njerëzve, nga e keqja e bidatit (risive), humbjes, mohimit dhe devijimit. (kthe duart lart) Me faljen Tënde o Shpëtues, me mirësinë Tënde o Falës, me mëshirën Tënde o Mëshiruesi më i madh. O Allah, na fut në Xhenet bashkë me të mirët, me ndërmjetësimin e Pejgamberit Tënd të zgjedhur. Amin, falënderimi i takon Allahut, Zotit të botëve."
+        },
+        ismiAzamIkindia: {
+            title: "Ismi Azam",
+            arabic: "Bismil’lâhi Rrahmâni Rrahîm<br>Subhâneke jâ Allâh teâlejte jâ Rrahmân, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Rrahîm teâlejte jâ Kerîm, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Hamîd teâlejte jâ Hakîm, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Mexhîd teâlejte jâ Melik, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Kuddûs teâlejte jâ Selâm, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Mu’min teâlejte jâ Muhejmin, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Azîz teâlejte jâ Xhebbâr, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Mutekebbir teâlejte jâ Hâlik, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Euuel teâlejte jâ Âhir, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Dhâhir teâlejte jâ Bâtin, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Bâri teâlejte jâ Musâuuir, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Teuuâb teâlejte jâ Uehhâb, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Bâith teâlejte jâ Uârith, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Kadîm teâlejte jâ Mukîm, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Ferd teâlejte jâ Uitr, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Nûr teâlejte jâ Settâr, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Xhelîl teâlejte jâ Xhemîl, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Kâhir teâlejte jâ Kâdir, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Melîk teâlejte jâ Muktedir, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Alîm teâlejte jâ Al’lâm, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Adhîm teâlejte jâ Gafûr, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Halîm teâlejte jâ Uedûd, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Shehîd teâlejte jâ Shâhid, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Kebîr teâlejte jâ Mute’âl, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Nûr teâlejte jâ Latîf, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Semi‘ teâlejte jâ Kefîl, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Karîb teâlejte jâ Basîr, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Hakk teâlejte jâ Mubîn, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Raûf teâlejte jâ Rrahîm, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Tâhir teâlejte jâ Mutahhir, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Muxhemmil teâlejte jâ Mufaddil, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Mudhhir teâlejte jâ Mun’im, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Dejjân teâlejte jâ Sultân, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Hannân teâlejte jâ Mennân, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Ehad teâlejte jâ Samed, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Hajj teâlejte jâ Kajjûm, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Adl teâlejte jâ Hakem, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke jâ Ferd teâlejte jâ Kuddûs, exhirnâ minen nâr bi afuike jâ Rrahmân<br>Subhâneke âhijjen sherâhijjen teâlejte lâ ilâhe il’lâ ente exhirnâ ue exhir uâlidejnâ ue rufekâenâ ue akribâenâ ue ahbâbenel mu’minînel muhlisîne minen nâr ue min kul’li nâr (duart poshtë) uahfadhnâ min sherrin nefsi uesh shejtân ue min sherril xhinni uel insân ue min sherril bid’ati ued dalâlâti uel ilhâdi uet tugjân (duart lart) bi afuike jâ Muxhîr, bi fadlike jâ Gaffâr, bi rahmetike jâ erhamer rrâhimîn. Allâhumme ed’hilnal Xhennete meal ebrâr, bi shefâati nebijjikel muhtâr. Amîn uel hamdu lil’lâhi Rabbil Âlemîn.",
+            albanian: "Me emrin e Allahut, Mëshiruesit, Mëshirëplotit.<br>I Lartësuar je o Allah, i lartësuar je o Mëshirues.<br>Na ruaj nga zjarri me faljen Tënde o Mëshirues.<br>I Lartësuar je o Mëshirëplotë, i lartësuar je o Bujar...<br>I Lartësuar je o i Lavdishëm, i lartësuar je o i Urtë...<br>I Lartësuar je o i Madhërishëm, i lartësuar je o Sundimtar...<br>I Lartësuar je o i Shenjtë, i lartësuar je o Shpëtimtar...<br>I Lartësuar je o Besues, i lartësuar je o Mbikëqyrës...<br>I Lartësuar je o i Fuqishëm, i lartësuar je o Shtrëngues...<br>I Lartësuar je o Madhështor, i lartësuar je o Krijues...<br>I Lartësuar je o i Pari, i lartësuar je o i Fundit...<br>I Lartësuar je o i Dukshmi, i lartësuar je o i Fshehti...<br>I Lartësuar je o Fillues, i lartësuar je o Formësues...<br>I Lartësuar je o Pranues i pendimit, i lartësuar je o Dhurues...<br>I Lartësuar je o Ringjallës, i lartësuar je o Trashëgimtar...<br>I Lartësuar je o i Pashfillim, i lartësuar je o i Përhershëm...<br>I Lartësuar je o i Vetëm (Tek), i lartësuar je o Tek...<br>I Lartësuar je o Dritë, i lartësuar je o Mbulues i të metave...<br>I Lartësuar je o i Lartë, i lartësuar je o i Bukur...<br>I Lartësuar je o Mposhtës, i lartësuar je o i Mundshëm...<br>I Lartësuar je o Pronar, i lartësuar je o i Plotfuqishëm...<br>I Lartësuar je o i Dijshëm, i lartësuar je o i Gjithëdijshëm...<br>I Lartësuar je o Madhështor, i lartësuar je o Falës...<br>I Lartësuar je o i Butë, i lartësuar je o i Dashur...<br>I Lartësuar je o Dëshmues, i lartësuar je o Dëshmitar...<br>I Lartësuar je o i Madh, i lartësuar je o i Lartësuar...<br>I Lartësuar je o Dritë, i lartësuar je o i Kuptueshëm...<br>I Lartësuar je o Dëgjues, i lartësuar je o Dorëzanës...<br>I Lartësuar je o i Afërt, i lartësuar je o Shikues...<br>I Lartësuar je o i Vërtetë, i lartësuar je o Sqarues...<br>I Lartësuar je o i Dhembshur, i lartësuar je o Mëshirëplotë...<br>I Lartësuar je o i Pastër, i lartësuar je o Pastrues...<br>I Lartësuar je o Zbukurues, i lartësuar je o Dhurues i vlerave...<br>I Lartësuar je o Shfaqës, i lartësuar je o Begatues...<br>I Lartësuar je o Llogaritar, i lartësuar je o Sulltan...<br>I Lartësuar je o i Mëshirshëm, i lartësuar je o Dhurues...<br>I Lartësuar je o Një, i lartësuar je o Absolut (Samed)...<br>I Lartësuar je o i Gjallë, i lartësuar je o Mbajtës i jetës...<br>I Lartësuar je o i Drejtë, i lartësuar je o Gjykues...<br>I Lartësuar je o i Vetëm, i lartësuar je o i Shenjtë...<br><br>I lartësuar je o i Gjallë e Përjetshëm, nuk ka zot tjetër përveç Teje. Na ruaj ne, prindërit tanë, miqtë tanë, të afërmit tanë, dhe të dashurit tanë besimtarë të sinqertë nga zjarri dhe nga çdo zjarr. (kthe duart poshtë) Na ruaj nga e keqja e nefsit (epshit) dhe e shejtanit, nga e keqja e xhinëve dhe njerëzve, nga e keqja e bidatit (risive), humbjes, mohimit dhe devijimit. (kthe duart lart) Me faljen Tënde o Shpëtues, me mirësinë Tënde o Falës, me mëshirën Tënde o Mëshiruesi më i madh. O Allah, na fut në Xhenet bashkë me të mirët, me ndërmjetësimin e Pejgamberit Tënd të zgjedhur. Amin, falënderimi i takon Allahut, Zotit të botëve."
+        },
+        ismiAzamDrekaJacia: {
+            title: "Ismi Azam",
+            arabic: "Bismil’lâhi Rrahmâni Rrahîm<br>Ja Xhemilu ja Allah, ja Karibu ja Allah<br>jâ Muxhîbu jâ Allâh, jâ Habîbu jâ Allâh<br>jâ Raûfu jâ Allâh, jâ Atûfu jâ Allâh<br>jâ Ma’rûfu jâ Allâh, jâ Latîfu jâ Allâh<br>jâ Adhîmu jâ Allâh, jâ Hannânu jâ Allâh<br>jâ Mennânu jâ Allâh, jâ Dejjânu jâ Allâh<br>jâ Subhânu jâ Allâh, jâ Emânu jâ Allâh<br>jâ Burhânu jâ Allâh, jâ Sultânu jâ Allâh<br>jâ Muste’ânu jâ Allâh, jâ Muhsinu jâ Allâh<br>jâ Muteâlu jâ Allâh, jâ Rrahmânu jâ Allâh<br>jâ Rrahîmu jâ Allâh, jâ Kerîmu jâ Allâh<br>jâ Mexhîdu jâ Allâh, jâ Ferdu jâ Allâh<br>jâ Uitru jâ Allâh, jâ Ehadu jâ Allâh<br>jâ Samedu jâ Allâh, jâ Mahmûdu jâ Allâh<br>jâ Sadika’l ua’di jâ Allâh, jâ Alijju jâ Allâh<br>jâ Ganijju jâ Allâh, jâ Shâfî jâ Allâh<br>jâ Kâfî jâ Allâh, jâ Muâfî jâ Allâh<br>jâ Bâkî jâ Allâh, jâ Hâdî jâ Allâh<br>jâ Kâdiru jâ Allâh, jâ Sâtiru jâ Allâh<br>jâ Kahhâru jâ Allâh, jâ Xhebbâru jâ Allâh<br>jâ Gaffâru jâ Allâh, jâ Fettâhu jâ Allâh<br>Jâ rabbes semâuâti uel ardi jâ dhel xhelâli uel ikrâm. Es’eluke bi hakki hâdhihil esmâi kul’lihâ en tusâl’lije alâ sejjidinâ Muhammedin ue alâ âli Muhammed, uerham Muhammeden kemâ sal’lejte ue sel’lemte ue bârekte ue rahimte ue terahhamte alâ ibrâhîme ue alâ âli ibrâhîme fil alemîn. Rabbenâ inneke hamîdun mexhîd. Bi rahmetike jâ erhâmer rrâhimîn. Uel hamdu lil’lâhi rabbil âlemîn.",
+            albanian: "Me emrin e Allahut, Mëshiruesit, Mëshirëplotit.<br>O i Bukur o Allah, o i Afërt o Allah,<br>O Përgjigjës o Allah, o i Dashur o Allah,<br>O i Dhembshur o Allah, o i Butë o Allah,<br>O i Njohur o Allah, o i Kuptueshëm o Allah,<br>O Madhështor o Allah, o i Mëshirshëm o Allah,<br>O Dhurues o Allah, o Llogaritar o Allah,<br>O i Lartësuar o Allah, o Sigurues o Allah,<br>O Argument o Allah, o Sulltan o Allah,<br>O Ndihmëtar o Allah, o Bamirës o Allah,<br>O i Lartë o Allah, o Mëshirues o Allah,<br>O Mëshirëplotë o Allah, o Bujar o Allah,<br>O i Lavdishëm o Allah, o i Vetëm (Tek) o Allah,<br>O Tek o Allah, o Një o Allah,<br>O Absolut o Allah, o i Lavdëruar o Allah,<br>O Mbajtës i premtimit o Allah, o i Lartë o Allah,<br>O i Pasur o Allah, o Shërues o Allah,<br>O Mjaftues o Allah, o Shpëtues o Allah,<br>O i Përhershëm o Allah, o Udhëzues o Allah,<br>O i Plotfuqishëm o Allah, o Mbulues (i të metave) o Allah,<br>O Mposhtës o Allah, o Shtrëngues o Allah,<br>O Falës o Allah, o Hapës (i mirësive) o Allah.<br><br>O Zoti i qiejve dhe i tokës, o Zot i Madhështisë dhe Nderimit. Të lutem me hakun (të drejtën) e të gjithë këtyre emrave të dërgosh salavate mbi zotërinë tonë Muhamed dhe mbi familjen e tij, dhe mëshiroje Muhamedin ashtu siç dërgove salavate, selame, bekime dhe mëshirë mbi Ibrahimin dhe familjen e Ibrahimit në të gjitha botët. Zoti ynë, Ti je i Lavdëruar dhe i Madhërishëm. Me mëshirën Tënde o Mëshiruesi më i madh. Falënderimi i takon Allahut, Zotit të botëve."
+        },
+        hashrSabah: {
+            title: "Mbyllja: Sura Hashr 20-24",
+            arabic: "Pastaj lexohen ajetet 20-24 te sures Hashr<br>(20.) La jesteuî  as-hâbu’n-nâri ue as-hâbu’l-xhenneh. As-hâbu’l-xhenneti humu’l-fâizûn (21.) Leu enzelnâ hâdhe’l-kur’ âne ‘alâ xhebelin le-raejtehu hâshi’an mutesaddi’an min hashjeti’l-lâhi ue tilke’l-emthâlu nedribuhâ linnâsi le’al’lehum jetefekkerûn (22.) Huuallâhu’l’ledhî lâ  ilâhe  il’lâ hu.‘âlimu’l-gajbi ue’shshehâdeti huue’r-rahmânu’r-rahîm (23.) Huuallâhu’l’ledhî lâ ilâhe il’lâhu, el-meliku’l-kuddûsu’s-selâmu’l-mu’uminu’l-muhejminu’l-’azîzu’l-xhebbâru’l-mutekebbir, subhânallâhi ‘ammâ jushrikûn (24.) Huuallâhu’lhâliku’l-bâri’ul-musau-uiru lehu’l-esmâu’l-husna, jusebbihu lehû mâ fis-semâuâti ue’l-erdi ue huue’l-’azîzu’l-hakîm.",
+            albanian: "Nuk janë të barabartë banorët e Zjarrit me banorët e Xhenetit. Banorët e Xhenetit janë ata që kanë fituar (janë të shpëtuar). Sikur Ne ta zbrisnim këtë Kuran mbi ndonjë mal, ti do ta shihje atë të përulur dhe të copëtuar nga frika e Allahut. Këta janë shembujt që Ne ua sjellim njerëzve, në mënyrë që ata të mendojnë. Ai është Allahu, përveç të Cilit nuk ka zot tjetër. Ai është Njohësi i së fshehtës dhe i së dukshmes. Ai është Mëshiruesi, Mëshirëploti. Ai është Allahu, përveç të Cilit nuk ka zot tjetër; Sundimtari, i Shenjti, Paqedhënësi, Siguruesi, Mbikëqyrësi, i Plotfuqishmi, Shtrënguesi, Madhështori. I Lartësuar qoftë Allahu nga ajo që ia shoqërojnë (në adhurim)! Ai është Allahu, Krijuesi, Shpikësi, Formësuesi. Atij i përkasin emrat më të bukur. Atë e madhëron çfarëdo që gjendet në qiej dhe në tokë. Ai është i Plotfuqishmi, i Urti."
+        },
+        hashrAksham: {
+            title: "Mbyllja: Sura Hashr 22-24",
+            arabic: "Pastaj lexohen ajetet 22-24 te sures Hashr<br>(22.) Huuallâhu’l’ledhî lâ  ilâhe  il’lâ hu.‘âlimu’l-gajbi ue’shshehâdeti huue’r-rahmânu’r-rahîm (23.) Huuallâhu’l’ledhî lâ ilâhe il’lâhu, el-meliku’l-kuddûsu’s-selâmu’l-mu’uminu’l-muhejminu’l-’azîzu’l-xhebbâru’l-mutekebbir, subhânallâhi ‘ammâ jushrikûn (24.) Huuallâhu’lhâliku’l-bâri’ul-musau-uiru lehu’l-esmâu’l-husna, jusebbihu lehû mâ fis-semâuâti ue’l-erdi ue huue’l-’azîzu’l-hakîm.",
+            albanian: "Ai është Allahu, përveç të Cilit nuk ka zot tjetër. Ai është Njohësi i së fshehtës dhe i së dukshmes. Ai është Mëshiruesi, Mëshirëploti. Ai është Allahu, përveç të Cilit nuk ka zot tjetër; Sundimtari, i Shenjti, Paqedhënësi, Siguruesi, Mbikëqyrësi, i Plotfuqishmi, Shtrënguesi, Madhështori. I Lartësuar qoftë Allahu nga ajo që ia shoqërojnë (në adhurim)! Ai është Allahu, Krijuesi, Shpikësi, Formësuesi. Atij i përkasin emrat më të bukur. Atë e madhëron çfarëdo që gjendet në qiej dhe në tokë. Ai është i Plotfuqishmi, i Urti."
+        },
+        fethDreka: {
+            title: "Mbyllja: Sura Fet'h 27-29",
+            arabic: "Pastaj lexohen ajetet 27-29 te sures Fet’h<br>(27.) Lekad sadekallahu rasûlehu’r-rujâ bi’l-hakki le-tedhulunne’l-mesxhide’l-harâme inshâ-allâhu âminîne muhal’likine ruusekum ue mukassirîne lâ tehafûn, fe-’alime ma lem ta’lemu fexhe’ale min dûni dhâlike fet’han karîbê (28.) Huuel’ledhî ersele rasûlehu bi’l-hudâ ue dîni’l-hakki lijudhhirahu ‘ale’d-dîni kul’lihî ue kefâ bil’lâhi shehîdê (29.) Muhammedun rasulullâhi uel’ledhîne me’ahu eshiddâu‘ale’l-kuffâri, ruhamâ’u bejnehum terâhum rukke’an suxhxheden jebtegûne fadlen minallâhi ue riduâne, sîmâhum fi uuxhûhihim min etheri’s-suxhudi dhâlike metheluhum fi’t-teurâti ue metheluhum fi’l’inxhîli kezer’in ehraxhe shetehu, fe-êzerahu fastegledha festeuâ ‘alâ sûkihî ju’xhibu’z-zurrâ’a lijegîdhe bihimu’l-kuffâr, ue’adellahu’l’ledhîne âmenu ue ‘amilu’s– sâlihâti minhum magfireten ue exhran ‘adhîma.",
+            albanian: "Allahu ia vërtetoi të Dërguarit të Tij ëndrrën me hak: Në dashtë Allahu, me siguri do të hyni në Xhaminë e Shenjtë (Qabe) të sigurt, me koka të rruara dhe flokë të shkurtuara, pa pasur frikë. Ai e dinte atë që ju nuk e dinit dhe përveç kësaj ju dha një fitore të afërt. Ai është Ai që e dërgoi të Dërguarin e Tij me udhëzim dhe fenë e vërtetë, për ta ngritur atë mbi të gjitha fetë. Dhe Allahu mjafton për dëshmitar. Muhamedi është i Dërguari i Allahut. Ata që janë me të, janë të ashpër ndaj mohuesve dhe të mëshirshëm mes veti. I sheh ata si përkulen dhe bien në sexhde duke kërkuar mirësinë e Allahut dhe kënaqësinë e Tij. Shenja e tyre në fytyrat e tyre është nga gjurma e sexhdes. Ky është shembulli i tyre në Teurat. Ndërsa shembulli i tyre në Inxhil është si një farë që nxjerr filizin e saj, pastaj e forcon atë, e ai trashet dhe qëndron drejt në kërcellin e tij, duke i gëzuar mbjellësit, në mënyrë që me ta të zemërojë mohuesve. Allahu u ka premtuar atyre prej tyre që besojnë dhe bëjnë vepra të mira, falje dhe shpërblim të madh."
+        },
+        nebeIkindia: {
+            title: "Mbyllja: Sura Nebe 31-40",
+            arabic: "Pastaj lexohen ajetet 31-40 te sures Nebe:<br>(31.) İnne li’l-muttekîne mefâzen (32.) Hadâika ue ‘anabâ (33.) Ue keuâ’ibe etrâbê (34.) Ue ke’sen dihâkâ (35.) La jesme’ûne fîhâ laguen ue lâ kidhdhâbê (36.) Xhezaen min rabbike  `atâen hisâbâ (37.) Rabbi’s-semâuâti ue’l-erdi ue mâ bejnehume’r-rahmâni lâ jemlikûne minhu hitâbâ (38.) Jeume jekûmu’r-rûhu ue’l-melâiketu saffe, lâ jetekellemûne illa men edhine lehu’r-rahmânu ue kâle sauâbâ (39.) Dhâlike’l-jeumul-hakk, fe-men shâe’t-tehadhe ilâ rabbihi me âbâ (40.) İnnâ  endhernâkum ‘adhâben karîbê, jeume jendhuru’l-meru mâ kaddemet jedâhu ue jekûlu’l-kâfiru ja lejtenî kuntu turâbê.",
+            albanian: "Vërtet, për të devotshmit ka fitim (shpëtim). Kopshte dhe vreshta, dhe vajza të reja moshatare, dhe kupa të plota (me pije). Aty nuk do të dëgjojnë fjalë të kota as gënjeshtra. Shpërblim nga Zoti yt, dhuratë e llogaritur. Zoti i qiejve dhe i tokës dhe çfarë ka mes tyre, i Gjithëmëshirshmi; ata nuk do të mund t'i flasin Atij. Ditën kur Shpirti (Xhibrili) dhe engjëjt të qëndrojnë në rreshta, ata nuk do të flasin, përveç atij që i jep leje i Gjithëmëshirshmi dhe thotë të vërtetën. Ajo është Dita e vërtetë. Pra, kush të dojë le të zgjedhë rrugën e kthimit te Zoti i tij. Ne vërtet ju kemi paralajmëruar për një dënim të afërt, ditën kur njeriu do të shohë se çfarë kanë përgatitur duart e tij, dhe mohuesi do të thotë: \"Ah, sikur të isha pluhur!\""
+        },
+        amenerresuluJacia: {
+            title: "Mbyllja: Bekare 285-286",
+            arabic: "Pastaj lexohen dy ajetet e fundit te sures Bekare:<br>(285.) Âmene’r-resûlu bimâ  unzile  ilejhi min rabbihi ue’l-muminûn, kul’lun  âmene bil’lâhi ue melâiketihî ue kutubihî ue rusulih. Lâ nufer’riku bejne ehadim min rusulih. Ue kâlû semi’nâ ue et’anâ gufraneke rabbenâ ue ilejke’l-mesîr.  <br>(286.) Lâ jukel’lifullâhu nefsen ‘il’lâ uus’ahâ, Lehâ mâ kesebet ue ‘alejhê mektesebet. Rabbenâ lâ tuâhidhnâ in nesînâ eu ahta’nâ, rabbenâ ue lâ tahmil ‘alejnâ  isran kemâ hameltehû ‘ale’l’ledhîne min kablinâ. Rabbenâ ue lâ tuhammilnâ mâ lâ tâkate lenâ bih. Ua’fu ‘annâ, uag`fir lenâ, uerhamnâ ente meulâna fensurnâ ‘ale’l-kaumi’l-kâfirîn.",
+            albanian: "I Dërguari ka besuar në atë që i është shpallur atij nga Zoti i tij, po ashtu edhe besimtarët. Të gjithë kanë besuar në Allahun, engjëjt e Tij, librat e Tij dhe të dërguarit e Tij (duke thënë): \"Ne nuk bëjmë dallim midis asnjërit prej të dërguarve të Tij.\" Dhe thanë: \"Dëgjuam dhe u bindëm. Faljen Tënde (kërkojmë) o Zoti ynë, dhe te Ti është kthimi.\" Allahu nuk e ngarkon askënd përtej mundësive të tij. Atij (njeriut) i takon ajo që ka fituar (nga e mira) dhe kundër tij është ajo që ka bërë (nga e keqja). \"Zoti ynë, mos na ndëshko nëse harrojmë ose gabojmë! Zoti ynë, mos na ngarko barrë të rëndë ashtu siç i ngarkove ata para nesh! Zoti ynë, mos na ngarko me diçka që nuk kemi fuqi ta mbajmë! Na fal, na mëshiro dhe na mëshiro! Ti je Mbrojtësi ynë, prandaj na ndihmo kundër popullit mohues!\""
+        },
+        pasSunetitAksham: {
+            title: "Pas Sunetit të Akshamit",
+            arabic: "Pas sunetit të akshamit, thuhet:<br>Amennâ bi ennehû (1 herë)<br>Lâ ilâhe il’lallâhu uahdehû lâ sherîke leh, lehul mulku ue lehul hamdu juhjî ue jumît ue huve hajjun lâ jemût bi jedihil hajr ue huve alâ kul’li shej’in kadîr (10 herë e, në të dhjetën), ue ilejhil masîr”.",
+            albanian: "Ne kemi besuar se vërtet:<br>Nuk ka zot tjetër përveç Allahut, Një dhe i pashoq. Atij i takon Sundimi dhe Falënderimi, Ai ngjall dhe vdes. Ai është i Gjallë e nuk vdes kurrë. E mira është në Dorën e Tij dhe Ai është i Plotfuqishëm për çdo gjë (10 herë, në fund shtohet) dhe tek Ai është kthimi."
+        },
+        pasVitritJacia: {
+            title: "Pas Vitrit",
+            arabic: "Pas vitrit, thuhet:<br>Subhânallâhi uel hamdu lil’lâhi ue lâ ilâhe il’lallâhu uallâhu ekber, ue lâ haule ue lâ kuvvete il’lâ bil’lâhi’l alijjil adhîm.",
+            albanian: "I lartësuar qoftë Allahu, falënderimi i qoftë Atij, nuk ka zot tjetër përveç Allahut, Allahu është më i Madhi. Nuk ka forcë as fuqi përveçse me ndihmën e Allahut, të Lartit, Madhështorit."
+        },
+        esmaulHusna: {
+            title: "ESMAUL HUSNA",
+            arabic: "Allâhu është Ai veç të cilit s’ka zot tjetër! Ai:<br>Rrahmân (mëshirues),<br>Rrahîm (bamirës, shpërblyes),<br>Melik (sundimtar),<br>Kuddûs (i shenjtë),<br>Selâm (shpëtues),<br>Mu’min (besues),<br>Muhejmin (urdhërues),<br>Azîz (i plotfuqishëm),<br>Xhebbâr (shtrëngues, detyrues),<br>Mutekebbir (madhështor),<br>Hâlik (krijues),<br>Bârî’ (hyjnor),<br>Musauuir (projektues),<br>Gaffâr (falës i fajeve),<br>Kahhâr (prishës, shkatërrues, persekutues),<br>Uehhâb (falës, dhënës pa shpërblim),<br>Rrezzâk (furnizues, ushqyes),<br>Fettâh (ngadhënjyes),<br>Alîm (dijetar),<br>Kâbid (rrëmbyes i shpirtrave),<br>Bâsit (zgjerues i të mirave),<br>Hâfid (poshtërues i mohuesve),<br>Râfi’ (lartësues i besimtarëve),<br>Mu’izz (vlerësues, lartësues),<br>Mudhil’l (zhvlerësues),<br>Semî’ (dëgjues),<br>Basîr (shikues),<br>Hakem (gjykues),<br>Adl (i drejtë),<br>Latîf (favorizues),<br>Habîr (i informuar),<br>Halîm (sjelljebutë),<br>Adhîm (madhështor),<br>Gafûr (falës i gjerë),<br>Shekûr (shumë falënderues, mirënjohës),<br>Alijj (i lartë),<br>Kebîr (i madh),<br>Hafîdh (ruajtës),<br>Mukît (përgatitës furnizimi),<br>Hasîb (llogarikërkues),<br>Xhelîl (i lartë në cilësi),<br>Kerîm (shumë bujar),<br>Rakîb (vëzhgues),<br>Muxhîb (pranues i lutjeve),<br>Uâsi’ (i gjerë në dije dhe mëshirë),<br>Hakîm (i urtë),<br>Uedûd (dashamirës),<br>Mexhîd (i lartë në nder),<br>Bâ’ith (ringjallës, dërgues),<br>Shehîd (dëshmues),<br>Hakk (i vërtetë),<br>Uekîl (dorëzanës),<br>Kauijj (i fuqishëm, i fortë),<br>Metîn (i fortë),<br>Uelijj (kujdestar),<br>Hamîd (i denjë për lavdërim),<br>Muhsijj (numërues),<br>Mubdijj (bërës nga e paqena),<br>Mu’îd (vdekjedhënës dhe ringjallës),<br>Muhjî (ngjallës, jetëdhënës),<br>Mumît (vdekjedhënës),<br>Hajj (i gjallë),<br>Kajjûm (vetekzistues),<br>Uâxhid (zbulues),<br>Mâxhid (i famshëm),<br>Uâhid (një i vetëm),<br>Samed (i vetëmjaftueshëm e i përplotësuar),<br>Kadîr (zotërues),<br>Muktedir (fuqiplot),<br>Mukaddim (priorizues),<br>Muahhir (prapësues),<br>Euuel (i parë, i paraqenë, i pa fillim),<br>Âhir (i pasqenë, i pa mbarim ),<br>Dhâhir (i dallueshëm),<br>Bâtin (i fshehur, i brendshëm),<br>Uâlî (administrues),<br>Mute’âli (i tejzakonshëm, transcendental),<br>Berr (fjalë e punëkthjelltë),<br>Teuuâb (pranues i pendesës),<br>Muntekim (shpagimtar),<br>Afuvv (falës),<br>Raûf (i dhembshur),<br>Mâliku’l-Mulk (zotërues i gjithësisë),<br>Dhu’l-Xhelâli ue’l-Ikrâm (i madh dhe dhurues),<br>Muksit (synues),<br>Xhâmi’ (përmbledhës, bashkues),<br>Ganijj (i pasur),<br>Mugnijj (pasurues),<br>Mâni’ (pengues),<br>Dârr (dëmtues),<br>Nâfi’ (dobisjellës),<br>Nûr (dritë),<br>Hâdî (orientues),<br>Bedî’ (novator),<br>Bâkî (i gjithëqenë, permanent),<br>Uârith (trashëgimtar),<br>Rashîd (udhërrëfyes),<br>Sabûr (durimdhënës).",
+            albanian: "Këto janë 99 Emrat e Bukur të Allahut me kuptimin e tyre të përafërt në gjuhën shqipe."
+        },
+        salatuTefrixhije: {
+            title: "SALATU TEFRIXHIJE",
+            arabic: "Allâhumme sal’li salâten kâmileten ue sel’lim selâmen tâmmen alâ sejjidinâ muhammedin il’ledhi tenhal’lu bihil ukadu, ue tenferixhu bihil kurabu, ue tukdâ bihil hauâjixhu, ue tunâlu bihir ragâibu ue husnul hauâtimi, ue justeskal gamâmu bi uexhhihil kerîm, ue alâ âlihi ue sahbihi fi kul’li lemhatin ue nefesin bi adedi kul’li ma’lumin lek.",
+            albanian: "O Allah, dërgo salavate të plota dhe selame të përsosura mbi zotërinë tonë Muhamed, përmes të cilit zgjidhen nyjat (vështirësitë), largohen brengat, plotësohen nevojat, arrihen dëshirat dhe përfundimet e mira, dhe kërkohet shi përmes fytyrës së tij fisnike. Dhe mbi familjen e tij dhe shokët e tij, në çdo shikim dhe frymëmarrje, sa numri i çdo gjëje të njohur tek Ti."
+        },
+        artikull: {
+            title: "Le te prese bota edhe 5 minuta",
+            arabic: "Namaze të falur shpejt, pa kujdes, lutje të pabëra… në shumicën e rasteve ne e mbledhim menjëherë sexhaden pasi përfundojmë faljen e namazit pa bërë tesbihet apo duanë duke nxjerrë si shkak punët tona të përditshme. A e kuptojmë se çfarë humbasim duke vepruar në këtë mënyrë?<br><br>Nganjëherë zhytemi aq shumë në telashet e kësaj bote saqë edhe adhurimet e detyrueshme i lëmë për në minutën e fundit. Duke vepruar kështu në të vërtetë humbasim mundësinë e arritjes së faljes së dhuruar nga Allahu i Madhëruar.<br><br>Kuptimi i namazit është madhërimi dhe falënderimi. Pra ti do të thuash “Subhanallah” me gojë dhe me sjelljen tënde për të madhëruar Zotin (xh.sh.), të thuash “Allahu Ekber”, të lartësosh Zotin, dhe “Elhamdulillah”, të falënderosh Zotin me zemër, gojë dhe trup. Pra madhërimi, lartësimi dhe falënderimi janë bërthama e namazit.<br><br>Në shumë vende namazi i pashoqëruar me tesbih dhe lutje përngjan me një letër të futur në zarf por të pa postuar. Në një hadith të transmetuar nga Ebu Hurejre (r.a.) Profeti ynë i nderuar flet për rëndësinë e lutjeve pas namazit me këto fjalë: “Ai person i cili pas çdo namazi thotë 33 herë subhanallah, 33 herë elhamdulillah, 33 herë Allahu Ekber dhe më pas për të plotësuar 100 thotë Lâ ilâhe illallâhü vahdehû lâ şherîke leh lehü’l mülkü ve lehü’l hamdü ve hüe alâ kül-li shej’in kadîr, do t’i falen të gjitha mëkatet qofshin ato në madhësinë e shkumës së detit”.<br><br>Kjo kohë kaq e shkurtër pas namazit ndoshta do të hapë dyert e faljes. A nuk është e paudhës të shpërdorohet një mundësi e tillë?<br><br>Dhikri (përmendja e Allahut) i bërë pas namazit është shumë i rëndësishëm. Ndërsa lutja është thelbi i adhurimit. Nga aspekti psikologjik mund të themi se dhikri përbën një pike kyçe në fushën e adhurimeve. Dhikri është mënyra më objektive e përpjekjes për ta vendosur në zemër dashurinë për Allahun (xh.sh.). Për këtë arsye edhe në Kur’an nuk thuhet falni shumë namaz apo agjëroni shumë por thuhet: “Përmendeni shumë Allahun”. Namazi është adhurim themelor por jo pak e rëndësishme është dhe përmendja e Allahut me gjuhë me fjalët “subhanallah”, “Allahu Ekber”. Nga ana psikologjike lutja konsiderohet një lidhje e veçantë mes individit dhe Zotit. Një namaz pa lutjet dhe tesbihet e fundit nuk është i mangët, por nëse ato kryhen ai do të ishte më i plotë.<br><br>Nëse analizojmë shumë ajete të Kur’anit dhe thënie të Profetit (a.s.), mund të kuptojmë shumë mirë faktin se njeriu duhet të shfrytëzojë sa më shumë kohë për të përkujtuar dhe falënderuar Allahun. Në Kur’anin Famëlartë përkujtimi i Allahut është vendosur mbi të gjitha adhurimet tjera. Nga ana tjetër në një ajet të sures “Zumer” thuhet se janë të humbur dhe të shthurur ata të cilët e kanë të ngurtësuar zemrën ndaj përmendjes së Allahut. Edhe në hadithe është theksuar se vepra më e mirë është përmendja e Allahut. Nën dritën e gjithë këtyre fakteve e kuptojmë se përmendja e Allahut para apo pas namazit, dhikri, bërja e duasë janë të domosdoshme për krijimin e një adhuruesi të sinqertë dhe modest. Ata të cilët nuk i zbukurojnë namazet apo adhurimet e tjera me lutje, adhurime shtesë, dhikër dhe tesbihë nuk mund të shijojnë plotësisht ëmbëlsinë e besimit.”<br><br>Përmendja e Allahut pas dhënies selam, bërja e lutjeve të mësuara nga ana e Profetit (a.s.) dhe kërkimi i faljes nga Zoti është sunet. Profeti ynë (a.s.) lexonte lutje të ndryshme menjëherë pas selamit. Disa prej këtyre lutjeve i ka lexuar menjëherë pas namazeve farz e disa të tjera edhe pas farzit edhe pas nafileve. Duke parë lutjet e bëra pas namazeve farz shumë dijetarë myslimanë kanë pohuar se bërja e lutjeve pas namazeve farz është më e përshtatshme se bërja e lutjeve pas namazeve nafile. Krahas kësaj edhe vlera e Ajetit Kursi të lexuar pas namazit është shumë e madhe.",
+            albanian: ""
+        }
+    };
+    
+    const appData = {
+        "Sabahu": {
+            icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>`,
+            sequence: [sharedPieces.pasFarzit, sharedPieces.salatuTunxhina, sharedPieces.hyrjaSabahAksham, sharedPieces.exhirnaMbrojtja, sharedPieces.duajaXhenetit, sharedPieces.tesbihetParaNumrimit, sharedPieces.tesbihetNumrimi, sharedPieces.tesbihetPasNumrimit, sharedPieces.dua, sharedPieces.ismiAzamSabahAksham, sharedPieces.hashrSabah]
+        },
+        "Dreka": {
+            icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>`,
+            sequence: [
+                {
+                    title: "Pasi mbaron farzi",
+                    arabic: "Pasi mbaron farzi i namazit të drekës, thuhet: “Allâhumme entes selâm ue minkes selâm, tebêrakte jâ dhel xhelêli uel ikrâm”, dhe pas saj lexohet Salâtu Tunxhinâ:",
+                    albanian: "Pasi mbaron farzi i namazit të drekës, thuhet: O Allah, Ti je Paqja dhe nga Ti buron paqja. Qofsh i bekuar, o Zot i Madhështisë dhe Nderimit. Dhe pas saj lexohet Salâtu Tunxhinâ:"
+                },
+                sharedPieces.salatuTunxhina, 
+                {
+                    title: "Pas sunetit të fundit",
+                    arabic: "Pas sunetit të fundit të drekës vazhdohet:",
+                    albanian: ""
+                },
+                sharedPieces.tesbihetParaNumrimit, sharedPieces.tesbihetNumrimi, sharedPieces.tesbihetPasNumrimit, sharedPieces.dua, sharedPieces.ismiAzamDrekaJacia, sharedPieces.fethDreka]
+        },
+        "Ikindia": {
+            icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path></svg>`,
+            sequence: [
+                {
+                    title: "Pasi mbaron farzi",
+                    arabic: "Pasi mbaron farzi i namazit të ikindisë, thuhet: “Allâhumme entes selâm ue minkes selâm, tebêrakte jâ dhel xhelêli uel ikrâm”, dhe pas saj lexohet Salâtu Tunxhinâ:",
+                    albanian: "Pasi mbaron farzi i namazit të ikindisë, thuhet: O Allah, Ti je Paqja dhe nga Ti buron paqja. Qofsh i bekuar, o Zot i Madhështisë dhe Nderimit. Dhe pas saj lexohet Salâtu Tunxhinâ:"
+                },
+                sharedPieces.salatuTunxhina, sharedPieces.tesbihetParaNumrimit, sharedPieces.tesbihetNumrimi, sharedPieces.tesbihetPasNumrimit, sharedPieces.dua, sharedPieces.ismiAzamIkindia, sharedPieces.nebeIkindia]
+        },
+        "Akshami": {
+            icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>`,
+            sequence: [
+                {
+                    title: "Pasi mbaron farzi",
+                    arabic: "Pasi mbaron farzi i namazit të akshamit, thuhet: “Allâhumme entes selâm ue minkes selâm, tebârekte jâ dhel xhelâli uel ikrâm”, dhe pas saj lexohet Salâtu Tunxhinâ:",
+                    albanian: "Pasi mbaron farzi i namazit të akshamit, thuhet: O Allah, Ti je Paqja dhe nga Ti buron paqja. Qofsh i bekuar, o Zot i Madhështisë dhe Nderimit. Dhe pas saj lexohet Salâtu Tunxhinâ:"
+                },
+                sharedPieces.salatuTunxhina, sharedPieces.pasSunetitAksham, sharedPieces.exhirnaMbrojtjaAksham, sharedPieces.duajaXhenetit, sharedPieces.tesbihetParaNumrimit, sharedPieces.tesbihetNumrimi, sharedPieces.tesbihetPasNumrimit, sharedPieces.dua, sharedPieces.ismiAzamDrekaJacia, sharedPieces.hashrAksham]
+        },
+        "Jacia": {
+            icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>`,
+            sequence: [
+                {
+                    title: "Pasi mbaron farzi",
+                    arabic: "Pasi mbaron farzi i namazit të jacisë, thuhet: “Allâhumme entes selâm ue minkes selâm, tebârekte jâ dhel xhelâli uel ikrâm”, dhe pas saj lexohet Salâtu Tunxhinâ:",
+                    albanian: "Pasi mbaron farzi i namazit të jacisë, thuhet: O Allah, Ti je Paqja dhe nga Ti buron paqja. Qofsh i bekuar, o Zot i Madhështisë dhe Nderimit. Dhe pas saj lexohet Salâtu Tunxhinâ:"
+                },
+                sharedPieces.salatuTunxhina, sharedPieces.pasVitritJacia, sharedPieces.tesbihetParaNumrimit, sharedPieces.tesbihetNumrimi, sharedPieces.tesbihetPasNumrimit, sharedPieces.dua, sharedPieces.ismiAzamDrekaJacia, sharedPieces.amenerresuluJacia]
+        },
+        "Ekstra": {
+            icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path></svg>`,
+            sequence: [sharedPieces.salatuTefrixhije, sharedPieces.esmaulHusna, sharedPieces.artikull]
+        }
+    };
+
+    let currentPrayer = "Sabahu";
+    let currentCounter = 0;
+    let targetCount = 33;
+    let counterActive = false;
+
+    function renderTabs() {
+        const nav = document.getElementById('bottom-tabs');
+        nav.innerHTML = Object.keys(appData).map(prayer => `
+            <button onclick="setPrayer('${prayer}')" 
+                class="tab-btn flex flex-col items-center justify-center w-full min-w-[70px] py-2 px-1 rounded-xl focus:outline-none select-none
+                ${currentPrayer === prayer ? 'text-emerald-600 dark:text-emerald-400 font-bold bg-emerald-50 dark:bg-emerald-900/30' : 'text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-400'}">
+                <div class="mb-1">${appData[prayer].icon}</div>
+                <span class="text-[10px] uppercase tracking-wider">${prayer}</span>
+            </button>
+        `).join('');
+    }
+
+    function renderContent() {
+        const main = document.getElementById('content');
+        let html = '';
+        const sequence = appData[currentPrayer].sequence;
+        
+        sequence.forEach((item, index) => {
+            html += `
+                <div id="card-${index}" class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden mb-6 scroll-mt-24 transition-all duration-300">
+                    <div class="bg-emerald-50/50 dark:bg-gray-800/80 px-4 py-3 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center sticky top-0 z-10 backdrop-blur-sm">
+                        <h2 class="text-emerald-700 dark:text-emerald-400 font-bold text-sm tracking-wide uppercase">
+                            ${item.title}
+                        </h2>
+                    </div>
+                    <div class="p-5">
+                        ${item.isHtml ? item.arabic : `<p class="arabic-text text-gray-800 dark:text-gray-200">${item.arabic}</p>`}
+                        
+                        ${item.albanian ? `
+                            <div class="mt-5 bg-emerald-50 dark:bg-emerald-900/20 rounded-xl p-4 border border-emerald-100 dark:border-emerald-800/50">
+                                <p class="albanian-text text-gray-700 dark:text-gray-300 font-medium">
+                                    ${item.albanian}
+                                </p>
+                            </div>
+                        ` : ''}
+
+                        ${index < sequence.length - 1 ? `
+                        <button onclick="scrollToNext(${index + 1})" class="mt-6 w-full bg-gray-50 hover:bg-emerald-50 dark:bg-gray-700 dark:hover:bg-gray-600 border border-gray-200 dark:border-gray-600 text-gray-600 hover:text-emerald-600 dark:text-gray-300 dark:hover:text-emerald-400 py-3 rounded-xl font-bold flex items-center justify-center space-x-2 transition-all active:scale-[0.98]">
+                            <span>Vazhdo</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                        </button>
+                        ` : ''}
+                    </div>
+                </div>
+            `;
+        });
+        
+        html += `<div class="h-20 flex items-center justify-center text-gray-400 text-sm font-medium">Fundi i lutjeve</div>`;
+        main.innerHTML = html;
+    }
+
+    function scrollToNext(index) {
+        const nextElement = document.getElementById(`card-${index}`);
+        if (nextElement) {
+            nextElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            if (window.navigator && window.navigator.vibrate) navigator.vibrate(20);
+            
+            // Add a subtle highlight effect to the next card
+            nextElement.style.boxShadow = '0 0 0 2px #10b981'; // emerald-500
+            setTimeout(() => {
+                nextElement.style.boxShadow = '';
+            }, 800);
+        }
+    }
+
+    function setPrayer(prayer) {
+        if (window.navigator && window.navigator.vibrate) navigator.vibrate(30);
+        currentPrayer = prayer;
+        renderTabs();
+        renderContent();
+        document.getElementById('content').scrollTo({ top: 0, behavior: 'instant' });
+    }
+
+    // --- COUNTER LOGIC ---
+    function openCounter(title) {
+        document.getElementById('counter-title').innerText = title;
+        document.getElementById('counter-value').innerText = "0";
+        currentCounter = 0;
+        counterActive = true;
+        
+        const overlay = document.getElementById('counter-overlay');
+        overlay.classList.remove('hidden');
+        overlay.classList.add('flex');
+        
+        // Prevent body scrolling
+        document.body.style.overflow = 'hidden';
+    }
+
+    function incrementCounter() {
+        if (!counterActive) return;
+        
+        currentCounter++;
+        const valElement = document.getElementById('counter-value');
+        valElement.innerText = currentCounter;
+        
+        // Visual pop
+        valElement.style.transform = 'scale(1.15)';
+        setTimeout(() => { valElement.style.transform = 'scale(1)'; }, 100);
+
+        if (window.navigator && window.navigator.vibrate) {
+            if (currentCounter === targetCount) {
+                // Long vibration when target reached
+                navigator.vibrate([200, 50, 200]); 
+            } else if (currentCounter > targetCount) {
+                 navigator.vibrate(50);
+            } else {
+                // Short subtle vibration for normal taps
+                navigator.vibrate(30);
+            }
+        }
+        
+        if (currentCounter >= targetCount) {
+            valElement.classList.remove('text-emerald-400');
+            valElement.classList.add('text-green-300');
+        } else {
+            valElement.classList.add('text-emerald-400');
+            valElement.classList.remove('text-green-300');
+        }
+    }
+
+    function closeCounter() {
+        counterActive = false;
+        const overlay = document.getElementById('counter-overlay');
+        overlay.classList.add('hidden');
+        overlay.classList.remove('flex');
+        
+        // Restore body scrolling
+        document.body.style.overflow = '';
+    }
+
+    // Apply default font size on load
+    rootStyle.setProperty('--base-font-size', `${currentFontSize}px`);
+    // Initialize App
+    renderTabs();
+    renderContent();
+</script>
+</body>
+</html>
